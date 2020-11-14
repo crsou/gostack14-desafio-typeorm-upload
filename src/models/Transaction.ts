@@ -18,14 +18,21 @@ class Transaction {
   title: string;
 
   @Column()
-  type: 'income' | 'outcome';
+  /**
+   * had to be changed to string to allow importing from csv.
+   */
+  // type: 'income' | 'outcome';
+  type: string;
 
   @Column()
   value: number;
 
-  @ManyToOne(() => Category)
-  @JoinColumn()
+  @Column()
   category_id: string;
+
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 
   @CreateDateColumn()
   created_at: Date;
